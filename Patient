@@ -1,0 +1,80 @@
+public class Patient {
+    private int id;
+    private String name;
+    private int birthYear;
+    private double height; // in cm
+    private double weight; // in kg
+
+    // Constructor with all fields
+    public Patient(int id, String name, int birthYear, double height, double weight) {
+        this.id = id;
+        this.name = name;
+
+        // Validate birthYear
+        if (birthYear >= 1900 && birthYear <= 2025) {
+            this.birthYear = birthYear;
+        } else {
+            this.birthYear = 2000;
+        }
+
+        // Validate height (in cm)
+        if (height >= 60 && height <= 199) {
+            this.height = height;
+        } else {
+            this.height = 170;
+        }
+
+        // Validate weight (in kg)
+        if (weight >= 0.9 && weight <= 200) {
+            this.weight = weight;
+        } else {
+            this.weight = 65;
+        }
+    }
+
+    // Constructor with missing birthYear (default to 2000)
+    public Patient(int id, String name, double height, double weight) {
+        this(id, name, 2000, height, weight);
+    }
+
+    // Getter methods
+    public int getId() {
+        return this.id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public int getBirthYear() {
+        return this.birthYear;
+    }
+
+    public double getHeight() {
+        return this.height;
+    }
+
+    public double getWeight() {
+        return this.weight;
+    }
+
+    // Calculate age
+    public int getAge(int currentYear) {
+        return currentYear - this.birthYear;
+    }
+
+    // Calculate BMI
+    public double getBMI() {
+        double heightInMeters = this.height / 100.0;
+        return this.weight / (heightInMeters * heightInMeters);
+    }
+
+    // Display patient details
+    public void displayDetails(int currentYear) {
+        System.out.println("Patient Name: " + name);
+        System.out.println("Patient Age: " + getAge(currentYear));
+        System.out.println("Patient Height (cm): " + height);
+        System.out.println("Patient Weight (kg): " + weight);
+        System.out.printf("Patient BMI: %.2f\n", getBMI());
+    }
+}
